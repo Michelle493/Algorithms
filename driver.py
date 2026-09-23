@@ -1,10 +1,10 @@
 import time
 import json
 
-# ---------------------------
+
 # Step 1: Load sample drivers
 # (drivers.json was provided by ai for this activity)
-# ---------------------------
+
 
 def generate_drivers():
     with open("drivers.json", "r") as f:
@@ -12,9 +12,9 @@ def generate_drivers():
     return drivers
 
 
-# ---------------------------
+
 # Step 2: O(N) - Linear search
-# ---------------------------
+
 
 def linear_search(drivers, target_id):
     for driver in drivers:
@@ -23,10 +23,10 @@ def linear_search(drivers, target_id):
     return None
 
 
-# ---------------------------
+
 # Step 3: O(log N) - Binary search
 # (list must be sorted first)
-# ---------------------------
+
 
 # a function used to tell sort what to sort by
 def get_id(driver):
@@ -53,9 +53,9 @@ def binary_search(sorted_drivers, target_id):
     return None
 
 
-# ---------------------------
+
 # Step 4: O(1) - Hash map lookup
-# ---------------------------
+
 
 def build_hash_map(drivers):
     driver_map = {}
@@ -71,9 +71,9 @@ def hash_map_search(driver_map, target_id):
         return None
 
 
-# ---------------------------
+
 # Step 5: Test all three and compare time
-# ---------------------------
+
 
 drivers = generate_drivers()
 
@@ -114,11 +114,11 @@ end = time.time()
 print("Hash map search time:", end - start)
 
 
-# ---------------------------
+
 # Step 6: Search by name, then confirm by id
 # (names are not unique, so we need the id to pick
 # the exact driver once we find matching names)
-# ---------------------------
+
 
 # Approach 1: check every driver one by one - O(N)
 def find_by_name_linear(drivers, name, target_id):
@@ -148,8 +148,7 @@ def find_by_name_binary(sorted_drivers, name, target_id):
         mid_name = sorted_drivers[mid]["name"]
 
         if mid_name == name:
-            # check drivers before and after mid since
-            # duplicate names sit next to each other once sorted
+            
             i = mid
             while i >= 0 and sorted_drivers[i]["name"] == name:
                 if sorted_drivers[i]["id"] == target_id:
@@ -167,13 +166,12 @@ def find_by_name_binary(sorted_drivers, name, target_id):
             low = mid + 1
         else:
             high = mid - 1
-
+            
     return None
 
 
 # Approach 3: hash map keyed by name, where each value is a
-# list of drivers who share that name - O(1) to find the list,
-# then a short check through that small list for the id
+# list of drivers who share that name - O(1) to find the list then a short check through that small list for the id
 
 def build_name_map(drivers):
     name_map = {}
